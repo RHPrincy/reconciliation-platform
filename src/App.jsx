@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import ImportScreen from './components/ImportScreen';
+import ReconciliationScreen from './components/ReconciliationScreen';
+import { LayoutDashboard, ReceiptText, Landmark, BarChart3 } from 'lucide-react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentScreen, setCurrentScreen] = useState('import'); // 'import' or 'reconciliation'
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app-container">
+      <nav className="navbar">
+        <div className="navbar-brand">
+          <LayoutDashboard size={24} className="icon-excel" />
+          <span>RestoCompta Pro</span>
+        </div>
+        <div className="navbar-links">
+          <button
+            className={`nav-link ${currentScreen === 'import' ? 'active' : ''}`}
+            onClick={() => setCurrentScreen('import')}
+          >
+            <ReceiptText size={18} />
+            Import Z et Banque
+          </button>
+          <button
+            className={`nav-link ${currentScreen === 'reconciliation' ? 'active' : ''}`}
+            onClick={() => setCurrentScreen('reconciliation')}
+          >
+            <BarChart3 size={18} />
+            Rapprochement et Écarts
+          </button>
+        </div>
+      </nav>
+
+      <main className="main-content">
+        {currentScreen === 'import' ? <ImportScreen /> : <ReconciliationScreen />}
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
