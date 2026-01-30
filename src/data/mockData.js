@@ -1,11 +1,12 @@
 export const PAYMENT_TYPES = [
   "Espèces",
   "Carte Bancaire",
-  "Titres Restaurant",
+  "TR",
   "Chèques",
-  "TR Dématérialisés",
+  "TR-CB",
   "Chèques Vacances",
-  "Avoirs"
+  "Rep Avoir",
+  "Avoir"
 ];
 
 export const MOCK_Z_REPORTS = [
@@ -16,7 +17,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes Espèces",
     debit: 0,
     credit: 450.50,
-    type: "Espèces"
+    type: "Espèces",
+    company: "LGTF"
   },
   {
     date: "01/08/2024",
@@ -25,7 +27,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes CB",
     debit: 0,
     credit: 1250.20,
-    type: "Carte Bancaire"
+    type: "Carte Bancaire",
+    company: "LGTF"
   },
   {
     date: "01/08/2024",
@@ -34,7 +37,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes Titres Resto",
     debit: 0,
     credit: 320.00,
-    type: "Titres Restaurant"
+    type: "Titres Restaurant",
+    company: "TOIT"
   },
   {
     date: "02/08/2024",
@@ -43,7 +47,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes Espèces",
     debit: 0,
     credit: 380.00,
-    type: "Espèces"
+    type: "Espèces",
+    company: "TOIT"
   },
   {
     date: "02/08/2024",
@@ -52,7 +57,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes CB",
     debit: 0,
     credit: 1100.00,
-    type: "Carte Bancaire"
+    type: "Carte Bancaire",
+    company: "SDM"
   },
   {
     date: "03/08/2024",
@@ -61,7 +67,8 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes Espèces",
     debit: 0,
     credit: 600.00,
-    type: "Espèces"
+    type: "Espèces",
+    company: "SDM"
   },
   {
     date: "03/08/2024",
@@ -70,13 +77,16 @@ export const MOCK_Z_REPORTS = [
     libelle: "Ventes CB",
     debit: 0,
     credit: 1500.00,
-    type: "Carte Bancaire"
+    type: "Carte Bancaire",
+    company: "LGTF"
   }
 ];
 
 // Add more data to fill the month of August
 for (let i = 4; i <= 31; i++) {
   const day = i < 10 ? `0${i}` : i;
+  const companies = ['LGTF', 'TOIT', 'SDM'];
+  const randomCompany = companies[Math.floor(Math.random() * companies.length)];
   MOCK_Z_REPORTS.push({
     date: `${day}/08/2024`,
     compte: "707100",
@@ -84,7 +94,8 @@ for (let i = 4; i <= 31; i++) {
     libelle: "Ventes Espèces",
     debit: 0,
     credit: Math.floor(Math.random() * 500) + 200,
-    type: "Espèces"
+    type: "Espèces",
+    company: randomCompany
   });
   MOCK_Z_REPORTS.push({
     date: `${day}/08/2024`,
@@ -93,7 +104,8 @@ for (let i = 4; i <= 31; i++) {
     libelle: "Ventes CB",
     debit: 0,
     credit: Math.floor(Math.random() * 1000) + 800,
-    type: "Carte Bancaire"
+    type: "Carte Bancaire",
+    company: randomCompany
   });
 }
 
@@ -101,31 +113,126 @@ export const MOCK_BANK_TRANSACTIONS = [
   {
     date: "02/08/2024",
     libelle: "REMISE CB 01/08",
-    montant: 1250.20
+    montant: 1250.20,
+    type: "CB",
+    debit: 0,
+    credit: 1250.20,
+    solde: 1250.20
   },
   {
     date: "03/08/2024",
     libelle: "REMISE CB 02/08",
-    montant: 1100.00
+    montant: 1100.00,
+    type: "CB",
+    debit: 0,
+    credit: 1100.00,
+    solde: 2350.20
   },
   {
     date: "04/08/2024",
     libelle: "REMISE CB 03/08",
-    montant: 1500.00
+    montant: 1500.00,
+    type: "CB",
+    debit: 0,
+    credit: 1500.00,
+    solde: 3850.20
   },
   {
     date: "05/08/2024",
     libelle: "VERSEMENT ESPECES",
-    montant: 400.00
+    montant: 400.00,
+    type: "Espece",
+    debit: 0,
+    credit: 400.00,
+    solde: 4250.20
+  },
+  {
+    date: "06/08/2024",
+    libelle: "CHEQUE N°12345",
+    montant: 500.00,
+    type: "Cheque",
+    debit: 0,
+    credit: 500.00,
+    solde: 4750.20
+  },
+  {
+    date: "07/08/2024",
+    libelle: "VIREMENT SALAIRE",
+    montant: 2000.00,
+    type: "Virement",
+    debit: 0,
+    credit: 2000.00,
+    solde: 6750.20,
+    note: "Salaire mensuel",
+    exercice: "2024-2025"
+  },
+  {
+    date: "08/08/2024",
+    libelle: "TICKET RESTO",
+    montant: 300.00,
+    type: "Ticket Resto",
+    debit: 0,
+    credit: 300.00,
+    solde: 7050.20,
+    brutCB: 320.00,
+    trpBrut: 300.00,
+    frais: 20.00,
+    tvaFrais: 4.00
+  },
+  {
+    date: "09/08/2024",
+    libelle: "CHEQUES VACANCES",
+    montant: 600.00,
+    type: "CV",
+    debit: 0,
+    credit: 600.00,
+    solde: 7650.20
   }
 ];
 
 // Add more bank data
-for (let i = 5; i <= 31; i++) {
+let currentSolde = 7650.20;
+for (let i = 10; i <= 31; i++) {
   const day = i < 10 ? `0${i}` : i;
+  const types = ["CB", "Espece", "Cheque", "Virement", "Ticket Resto", "CV"];
+  const randomType = types[Math.floor(Math.random() * types.length)];
+  let montant = Math.floor(Math.random() * 1000) + 200;
+  let libelle = "";
+  let additionalFields = {};
+
+  switch (randomType) {
+    case "CB":
+      libelle = `REMISE CB ${i-1}/08`;
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant };
+      break;
+    case "Espece":
+      libelle = "VERSEMENT ESPECES";
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant };
+      break;
+    case "Cheque":
+      libelle = `CHEQUE N°${Math.floor(Math.random() * 10000)}`;
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant };
+      break;
+    case "Virement":
+      libelle = "VIREMENT DIVERS";
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant, note: "Virement divers", exercice: "2024-2025" };
+      break;
+    case "Ticket Resto":
+      libelle = "TICKET RESTO";
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant, brutCB: montant + 20, trpBrut: montant, frais: 20, tvaFrais: 4 };
+      break;
+    case "CV":
+      libelle = "CHEQUES VACANCES";
+      additionalFields = { debit: 0, credit: montant, solde: currentSolde + montant };
+      break;
+  }
+
   MOCK_BANK_TRANSACTIONS.push({
     date: `${day}/08/2024`,
-    libelle: `REMISE CB ${i-1}/08`,
-    montant: Math.floor(Math.random() * 1000) + 800
+    libelle,
+    montant,
+    type: randomType,
+    ...additionalFields
   });
+  currentSolde += montant;
 }
