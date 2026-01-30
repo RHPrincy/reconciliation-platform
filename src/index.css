@@ -1,5 +1,63 @@
-/* Reset or minimal base styles */
+@import "tailwindcss";
+
+@theme {
+  --color-excel-green: #217346;
+  --color-excel-green-light: #e9f5ee;
+  --color-bg-gray: #f3f3f3;
+  --color-border-color: #d1d1d1;
+  --color-text-main: #333;
+  --color-text-secondary: #666;
+}
+
+/* Reusable styles and CSS variables */
+:root {
+  --excel-green: #217346;
+  --excel-green-light: #e9f5ee;
+  --bg-gray: #f3f3f3;
+  --border-color: #d1d1d1;
+  --text-main: #333;
+  --text-secondary: #666;
+  --white: #ffffff;
+}
+
 body {
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-gray);
+  color: var(--text-main);
+}
+
+/* Excel-like Table Reusable Styles */
+.excel-table-container {
+  background: white;
+  border: 1px solid var(--border-color);
+  overflow: auto;
+  position: relative;
+}
+
+.excel-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.excel-table th {
+  position: sticky;
+  top: 0;
+  background-color: #f8f9fa;
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-secondary);
+  z-index: 10;
+}
+
+.excel-table td {
+  border: 1px solid var(--border-color);
+  padding: 6px 8px;
+}
+
+.text-right {
+  text-align: right;
 }

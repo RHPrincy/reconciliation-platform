@@ -1,4 +1,6 @@
-export const PAYMENT_TYPES = [
+import { ZReportEntry, BankTransaction, PaymentType } from '../types';
+
+export const PAYMENT_TYPES: PaymentType[] = [
   "Espèces",
   "Carte Bancaire",
   "Titres Restaurant",
@@ -8,7 +10,7 @@ export const PAYMENT_TYPES = [
   "Avoirs"
 ];
 
-export const MOCK_Z_REPORTS = [
+export const MOCK_Z_REPORTS: ZReportEntry[] = [
   {
     date: "01/08/2024",
     compte: "707100",
@@ -97,7 +99,7 @@ for (let i = 4; i <= 31; i++) {
   });
 }
 
-export const MOCK_BANK_TRANSACTIONS = [
+export const MOCK_BANK_TRANSACTIONS: BankTransaction[] = [
   {
     date: "02/08/2024",
     libelle: "REMISE CB 01/08",
