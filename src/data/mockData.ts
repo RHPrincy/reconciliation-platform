@@ -1,15 +1,50 @@
-export const PAYMENT_TYPES = [
+export type PaymentCategory =
+  | "Espèces"
+  | "Carte Bancaire"
+  | "Titres Restaurant"
+  | "Chèques"
+  | "TR Dématérialisés"
+  | "Chèques Vacances"
+  | "Avoirs";
+
+export interface ZReport {
+  date: string;
+  compte: string;
+  journal: string;
+  libelle: string;
+  debit: number;
+  credit: number;
+  type: PaymentCategory;
+  company: string;
+}
+
+export interface BankTransaction {
+  date: string;
+  libelle: string;
+  montant: number;
+  type: string;
+  debit: number;
+  credit: number;
+  solde: number;
+  note?: string;
+  exercice?: string;
+  brutCB?: number;
+  trpBrut?: number;
+  frais?: number;
+  tvaFrais?: number;
+}
+
+export const PAYMENT_CATEGORIES: PaymentCategory[] = [
   "Espèces",
   "Carte Bancaire",
-  "TR",
+  "Titres Restaurant",
   "Chèques",
-  "TR-CB",
+  "TR Dématérialisés",
   "Chèques Vacances",
-  "Rep Avoir",
-  "Avoir"
+  "Avoirs"
 ];
 
-export const MOCK_Z_REPORTS = [
+export const MOCK_Z_REPORTS: ZReport[] = [
   {
     date: "01/08/2024",
     compte: "707100",
@@ -82,11 +117,12 @@ export const MOCK_Z_REPORTS = [
   }
 ];
 
-// Add more data to fill the month of August
+// Fill the month of August
 for (let i = 4; i <= 31; i++) {
   const day = i < 10 ? `0${i}` : i;
   const companies = ['LGTF', 'TOIT', 'SDM'];
   const randomCompany = companies[Math.floor(Math.random() * companies.length)];
+
   MOCK_Z_REPORTS.push({
     date: `${day}/08/2024`,
     compte: "707100",
@@ -97,6 +133,7 @@ for (let i = 4; i <= 31; i++) {
     type: "Espèces",
     company: randomCompany
   });
+
   MOCK_Z_REPORTS.push({
     date: `${day}/08/2024`,
     compte: "707100",
@@ -109,7 +146,7 @@ for (let i = 4; i <= 31; i++) {
   });
 }
 
-export const MOCK_BANK_TRANSACTIONS = [
+export const MOCK_BANK_TRANSACTIONS: BankTransaction[] = [
   {
     date: "02/08/2024",
     libelle: "REMISE CB 01/08",
@@ -190,7 +227,6 @@ export const MOCK_BANK_TRANSACTIONS = [
   }
 ];
 
-// Add more bank data
 let currentSolde = 7650.20;
 for (let i = 10; i <= 31; i++) {
   const day = i < 10 ? `0${i}` : i;
@@ -198,7 +234,7 @@ for (let i = 10; i <= 31; i++) {
   const randomType = types[Math.floor(Math.random() * types.length)];
   let montant = Math.floor(Math.random() * 1000) + 200;
   let libelle = "";
-  let additionalFields = {};
+  let additionalFields: Partial<BankTransaction> = {};
 
   switch (randomType) {
     case "CB":
@@ -232,6 +268,9 @@ for (let i = 10; i <= 31; i++) {
     libelle,
     montant,
     type: randomType,
+    debit: additionalFields.debit ?? 0,
+    credit: additionalFields.credit ?? 0,
+    solde: additionalFields.solde ?? currentSolde + montant,
     ...additionalFields
   });
   currentSolde += montant;

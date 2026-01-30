@@ -1,5 +1,61 @@
-/* Reset or minimal base styles */
+@import "tailwindcss";
+
+@theme {
+  --color-excel-green: #217346;
+  --color-excel-green-light: #e9f5ee;
+  --color-bg-gray: #f3f3f3;
+  --color-excel-border: #d1d1d1;
+  --color-text-main: #333;
+  --color-text-secondary: #666;
+}
+
+@layer components {
+  .excel-table-container {
+    @apply bg-white border border-excel-border overflow-auto max-h-[400px] relative;
+  }
+
+  .excel-table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .excel-table th {
+    @apply sticky top-0 bg-[#f8f9fa] border border-excel-border p-2 text-left font-semibold text-text-secondary z-10;
+  }
+
+  .excel-table td {
+    @apply border border-excel-border p-1.5 px-2;
+  }
+
+  .excel-table tr:hover {
+    @apply bg-[#f1f1f1];
+  }
+
+  .excel-card {
+    @apply bg-white border border-excel-border p-6 mb-8 rounded-sm;
+  }
+
+  .excel-section-title {
+    @apply text-lg mb-6 text-text-main border-l-4 border-excel-green pl-2.5 font-bold;
+  }
+
+  .excel-input {
+    @apply p-1.5 px-3 border border-excel-border rounded-sm focus:outline-excel-green;
+  }
+
+  .excel-button-primary {
+    @apply bg-excel-green text-white px-4 py-2 rounded-sm hover:bg-[#1a5c38] transition-colors disabled:opacity-50;
+  }
+
+  .excel-button-secondary {
+    @apply bg-white text-excel-green border border-excel-green px-4 py-2 rounded-sm hover:bg-excel-green-light transition-colors;
+  }
+
+  /* Utility for Excel-like data alignment */
+  .excel-num {
+    @apply text-right tabular-nums;
+  }
+}
+
 body {
-  margin: 0;
-  padding: 0;
+  @apply bg-bg-gray text-text-main font-sans;
 }
